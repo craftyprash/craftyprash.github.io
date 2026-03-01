@@ -26,7 +26,7 @@ const uniqueGuides = Array.from(guideMap.values()).sort((a, b) =>
     
     <div class="cards">
       {uniqueGuides.map(guide => {
-        const guideTitle = guide.data.guide ? guide.data.guide.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : guide.data.title;
+        const guideTitle = guide.data.guide ? guide.data.guide.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : guide.data.title;
         return (
           <Card 
             title={guideTitle}
