@@ -8,7 +8,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "changelog": "git-cliff -o CHANGELOG.md"
+    "changelog": "git-cliff -o CHANGELOG.md",
+    "sync": "node scripts/sync-vault.mjs"
   },
   "dependencies": {
     "@astrojs/check": "0.9.6",
@@ -16,6 +17,7 @@
     "@astrojs/sitemap": "^3.7.0",
     "@tailwindcss/vite": "4.2.1",
     "astro": "^5.18.0",
+    "gray-matter": "4.0.3",
     "typescript": "5.9.3"
   },
   "devDependencies": {

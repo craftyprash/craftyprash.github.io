@@ -1,0 +1,53 @@
+name: Sync from Obsidian Vault
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout website repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Checkout vault repo
+        uses: actions/checkout@v4
+        with:
+          repository: craftyprash/CraftyOrg
+          token: ${{ secrets.VAULT_ACCESS_TOKEN }}
+          path: vault
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install sync script dependencies
+        run: npm install gray-matter
+      
+      - name: Run sync script
+        run: node scripts/sync-vault.mjs
+        env:
+          VAULT_PATH: ./vault
+      
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content public/images
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: sync content from Obsidian vault"
+            git push
+          fi
