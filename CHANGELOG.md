@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Bug Fixes
 
 - Prevent icon flicker on navigation by using CSS-only Phosphor Icons
+- Resolve build errors for GitHub Pages deployment
 
 ### Documentation
 
@@ -24,4 +25,6 @@ All notable changes to this project will be documented in this file.
 - Initial project setup with Astro, TailwindCSS, MDX, and sitemap
 - Add Vercel deployment configuration
 - Switch to GitHub Pages deployment
+- Add custom domain CNAME
+- Configure Giscus with repo and category IDs
 

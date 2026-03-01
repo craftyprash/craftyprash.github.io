@@ -27,9 +27,9 @@ const uniqueGuides = Array.from(guideMap.values()).sort((a, b) =>
     <div class="cards">
       {uniqueGuides.map(guide => (
         <Card 
-          title={guide.data.title.replace(/^(Chapter \d+:|Getting Started)\s*-?\s*/i, '') || guide.data.title} 
+          title="Sample Guide"
           href={`/guides/${guide.slug}`}
-          description={guide.data.description || `Start with: ${guide.data.title}`}
+          description="A comprehensive guide with multiple chapters"
         />
       ))}
     </div>
