@@ -23,6 +23,9 @@ const currentPath = Astro.url.pathname;
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="preload" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" as="style" />
   <script is:inline>
     (function() {
@@ -92,8 +95,14 @@ const currentPath = Astro.url.pathname;
     gap: 0.75rem;
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--text-primary);
     line-height: 1;
+  }
+
+  .logo span {
+    background: linear-gradient(135deg, #e5c07b 0%, #61afef 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .logo img {
