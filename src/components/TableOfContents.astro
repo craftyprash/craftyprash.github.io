@@ -2,7 +2,7 @@
 ---
 
 <nav class="toc">
-  <h3>On this page</h3>
+  <h3>Contents</h3>
   <div id="toc-list"></div>
 </nav>
 
@@ -22,11 +22,22 @@
       heading.id = id;
       
       const li = document.createElement('li');
-      li.className = heading.tagName.toLowerCase();
+      if (heading.tagName === 'H3') {
+        li.style.paddingLeft = '2ch';
+      }
       
       const a = document.createElement('a');
       a.href = `#${id}`;
       a.textContent = heading.textContent || '';
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.getElementById(id);
+        if (target) {
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
       
       li.appendChild(a);
       ul.appendChild(li);
@@ -60,9 +71,7 @@
     margin: 0.5rem 0;
   }
 
-  .toc li.h3 {
-    padding-left: 1rem;
-  }
+
 
   .toc a {
     color: var(--text-secondary);
