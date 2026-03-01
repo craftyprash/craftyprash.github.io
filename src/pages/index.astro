@@ -1,14 +1,34 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Crafty Prash</title>
-  </head>
-  <body>
-    <h1>Welcome to Crafty Prash</h1>
-  </body>
-</html>
+<BaseLayout title="Crafty Prash">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-12">Welcome</h1>
+    
+    <div class="grid md:grid-cols-2 gap-8">
+      <section>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Notes</h2>
+        <div class="space-y-4">
+          <Card 
+            title="Sample Note" 
+            href="/notes/sample"
+            description="A quick one-pager note"
+          />
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Guides</h2>
+        <div class="space-y-4">
+          <Card 
+            title="Sample Guide" 
+            href="/guides/sample"
+            description="A comprehensive guide with chapters"
+          />
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
