@@ -3,10 +3,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="About - Crafty Prash">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h1 class="text-4xl font-bold text-gray-900 mb-6">About</h1>
-    <div class="prose prose-gray">
-      <p>Welcome to my personal site where I share notes and guides.</p>
+  <div class="about-page">
+    <h1>About</h1>
+    <div class="content">
+      <p>
+        Welcome to my personal site where I share notes and guides on various topics.
+      </p>
     </div>
   </div>
 </BaseLayout>
+
+<style>
+  .about-page {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .about-page h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .content p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+
+const chapters = [
+  { slug: 'sample', title: 'Getting Started' },
+  { slug: 'chapter-2', title: 'Advanced Topics' },
+  { slug: 'chapter-3', title: 'Best Practices' },
+];
+---
+
+<GuideLayout 
+  title="Advanced Topics" 
+  date={new Date('2024-01-15')}
+  tags={['guide', 'tutorial']}
+  chapters={chapters}
+  currentSlug="chapter-2"
+>
+  <p>This is chapter 2 of the sample guide.</p>
+
+  <h2>Advanced Concepts</h2>
+  <p>Now that you understand the basics, let's dive into more advanced topics.</p>
+
+  <h2>Deep Dive</h2>
+  <p>Here we explore complex scenarios and edge cases.</p>
+
+  <h3>Performance Optimization</h3>
+  <p>Tips for optimizing your implementation.</p>
+
+  <h2>Summary</h2>
+  <p>You should now have a solid understanding of advanced concepts.</p>
+</GuideLayout>

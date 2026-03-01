@@ -4,13 +4,16 @@ import Card from '../components/Card.astro';
 ---
 
 <BaseLayout title="Crafty Prash">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h1 class="text-4xl font-bold text-gray-900 mb-12">Welcome</h1>
+  <div class="home-page">
+    <div class="hero">
+      <h1>Welcome</h1>
+      <p>Quick notes and comprehensive guides</p>
+    </div>
     
-    <div class="grid md:grid-cols-2 gap-8">
+    <div class="sections">
       <section>
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Notes</h2>
-        <div class="space-y-4">
+        <h2>Notes</h2>
+        <div class="cards">
           <Card 
             title="Sample Note" 
             href="/notes/sample"
@@ -20,8 +23,8 @@ import Card from '../components/Card.astro';
       </section>
 
       <section>
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Guides</h2>
-        <div class="space-y-4">
+        <h2>Guides</h2>
+        <div class="cards">
           <Card 
             title="Sample Guide" 
             href="/guides/sample"
@@ -32,3 +35,52 @@ import Card from '../components/Card.astro';
     </div>
   </div>
 </BaseLayout>
+
+<style>
+  .home-page {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    margin-bottom: 4rem;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+  }
+
+  .sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 3rem;
+  }
+
+  .sections h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: none;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .sections {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

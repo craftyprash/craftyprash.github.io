@@ -1,0 +1,29 @@
+---
+import NoteLayout from '../../layouts/NoteLayout.astro';
+---
+
+<NoteLayout 
+  title="Sample Note" 
+  date={new Date('2024-01-15')}
+  tags={['example', 'demo']}
+>
+  <p>This is a sample note demonstrating the note layout with TOC on the right.</p>
+
+  <h2>Introduction</h2>
+  <p>Notes are single-page articles with a table of contents on the right side.</p>
+
+  <h2>Features</h2>
+  <p>The note layout includes:</p>
+  <ul>
+    <li>Automatic table of contents generation</li>
+    <li>Share buttons for social media</li>
+    <li>Responsive design</li>
+    <li>Clean typography</li>
+  </ul>
+
+  <h3>Subsection Example</h3>
+  <p>This is a subsection that will appear indented in the TOC.</p>
+
+  <h2>Conclusion</h2>
+  <p>This layout is perfect for quick reference articles and one-pagers.</p>
+</NoteLayout>

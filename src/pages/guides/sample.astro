@@ -1,0 +1,37 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+
+const chapters = [
+  { slug: 'sample', title: 'Getting Started' },
+  { slug: 'chapter-2', title: 'Advanced Topics' },
+  { slug: 'chapter-3', title: 'Best Practices' },
+];
+---
+
+<GuideLayout 
+  title="Getting Started" 
+  date={new Date('2024-01-15')}
+  tags={['guide', 'tutorial']}
+  chapters={chapters}
+  currentSlug="sample"
+>
+  <p>This is a sample guide demonstrating the 3-column layout.</p>
+
+  <h2>Overview</h2>
+  <p>Guides are multi-chapter documents with navigation on the left and TOC on the right.</p>
+
+  <h2>Layout Structure</h2>
+  <p>The guide layout features:</p>
+  <ul>
+    <li>Chapter navigation on the left sidebar</li>
+    <li>Main content in the center</li>
+    <li>Table of contents on the right</li>
+    <li>Previous/Next chapter navigation</li>
+  </ul>
+
+  <h3>Navigation</h3>
+  <p>Use the sidebar to jump between chapters, or use the pagination at the bottom.</p>
+
+  <h2>Conclusion</h2>
+  <p>This layout is ideal for comprehensive tutorials and documentation.</p>
+</GuideLayout>

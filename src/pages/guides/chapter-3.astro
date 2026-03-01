@@ -1,0 +1,34 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+
+const chapters = [
+  { slug: 'sample', title: 'Getting Started' },
+  { slug: 'chapter-2', title: 'Advanced Topics' },
+  { slug: 'chapter-3', title: 'Best Practices' },
+];
+---
+
+<GuideLayout 
+  title="Best Practices" 
+  date={new Date('2024-01-15')}
+  tags={['guide', 'tutorial']}
+  chapters={chapters}
+  currentSlug="chapter-3"
+>
+  <p>This is the final chapter covering best practices.</p>
+
+  <h2>Code Quality</h2>
+  <p>Follow these guidelines to maintain high code quality.</p>
+
+  <h2>Testing</h2>
+  <p>Comprehensive testing strategies for your projects.</p>
+
+  <h3>Unit Tests</h3>
+  <p>Writing effective unit tests.</p>
+
+  <h3>Integration Tests</h3>
+  <p>Testing component interactions.</p>
+
+  <h2>Conclusion</h2>
+  <p>You've completed the guide! Apply these best practices in your work.</p>
+</GuideLayout>

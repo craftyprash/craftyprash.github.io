@@ -1,0 +1,89 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="copyright">
+        Copyright © {currentYear} Prashant Padmanabhan. Licensed under 
+        <a 
+          href="https://creativecommons.org/licenses/by-sa/4.0/" 
+          target="_blank" 
+          rel="noopener"
+        >
+          CC BY SA 4.0
+        </a>
+      </div>
+      <div class="social">
+        <a 
+          href="https://github.com/craftyprash" 
+          target="_blank" 
+          rel="noopener"
+          title="GitHub"
+        >
+          <i class="ph ph-github-logo"></i>
+        </a>
+        <a 
+          href="https://www.linkedin.com/in/prashantpadmanabhan/" 
+          target="_blank" 
+          rel="noopener"
+          title="LinkedIn"
+        >
+          <i class="ph ph-linkedin-logo"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .copyright {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .copyright a {
+    color: var(--accent);
+  }
+
+  .social {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social a {
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+
+  .social a:hover {
+    color: var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

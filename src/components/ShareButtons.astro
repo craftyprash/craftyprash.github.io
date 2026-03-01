@@ -1,0 +1,64 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const url = Astro.url.href;
+const encodedUrl = encodeURIComponent(url);
+const encodedTitle = encodeURIComponent(title);
+---
+
+<div class="share-buttons">
+  <span class="share-label">Share:</span>
+  <div class="share-icons">
+    <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`} target="_blank" rel="noopener" class="share-btn" title="Share on LinkedIn">
+      <i class="ph ph-linkedin-logo"></i>
+    </a>
+    <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`} target="_blank" rel="noopener" class="share-btn" title="Share on Facebook">
+      <i class="ph ph-facebook-logo"></i>
+    </a>
+    <a href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`} target="_blank" rel="noopener" class="share-btn" title="Share on Twitter">
+      <i class="ph ph-twitter-logo"></i>
+    </a>
+    <a href={`https://wa.me/?text=${encodedTitle}%20${encodedUrl}`} target="_blank" rel="noopener" class="share-btn" title="Share on WhatsApp">
+      <i class="ph ph-whatsapp-logo"></i>
+    </a>
+  </div>
+</div>
+
+<style>
+  .share-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .share-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .share-icons {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+    font-size: 1.25rem;
+  }
+
+  .share-btn:hover {
+    background: rgba(88, 166, 255, 0.2);
+    color: var(--accent);
+  }
+</style>

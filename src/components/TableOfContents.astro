@@ -1,0 +1,77 @@
+---
+---
+
+<nav class="toc">
+  <h3>On this page</h3>
+  <div id="toc-list"></div>
+</nav>
+
+<script>
+  function generateTOC() {
+    const article = document.querySelector('.prose');
+    if (!article) return;
+
+    const headings = article.querySelectorAll('h2, h3');
+    const tocList = document.getElementById('toc-list');
+    if (!tocList || headings.length === 0) return;
+
+    const ul = document.createElement('ul');
+    
+    headings.forEach((heading, index) => {
+      const id = heading.id || `heading-${index}`;
+      heading.id = id;
+      
+      const li = document.createElement('li');
+      li.className = heading.tagName.toLowerCase();
+      
+      const a = document.createElement('a');
+      a.href = `#${id}`;
+      a.textContent = heading.textContent || '';
+      
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    
+    tocList.appendChild(ul);
+  }
+
+  document.addEventListener('DOMContentLoaded', generateTOC);
+</script>
+
+<style>
+  .toc {
+    font-size: 0.9rem;
+  }
+
+  .toc h3 {
+    font-size: 0.9rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  .toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc li {
+    margin: 0.5rem 0;
+  }
+
+  .toc li.h3 {
+    padding-left: 1rem;
+  }
+
+  .toc a {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    display: block;
+    transition: color 0.2s;
+  }
+
+  .toc a:hover {
+    color: var(--accent);
+  }
+</style>
