@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://craftyprash.github.io',
+  site: 'https://craftyprash.in',
   integrations: [
     mdx(),
     sitemap()
