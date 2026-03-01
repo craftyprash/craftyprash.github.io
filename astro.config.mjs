@@ -5,7 +5,17 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://craftyprash.github.io',
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    sitemap()
+  ],
+  markdown: {
+    syntaxHighlight: 'shiki',
+    shikiConfig: {
+      theme: 'github-dark',
+      wrap: true,
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },

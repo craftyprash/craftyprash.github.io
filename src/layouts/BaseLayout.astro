@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
+import CodeCopy from '../components/CodeCopy.astro';
+import Mermaid from '../components/Mermaid.astro';
 import brandLogo from '../assets/brand-logo.png';
 
 interface Props {
@@ -61,6 +63,8 @@ const currentPath = Astro.url.pathname;
     <slot />
   </main>
   <Footer />
+  <CodeCopy />
+  <Mermaid />
 </body>
 </html>
 

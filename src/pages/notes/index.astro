@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Card from '../../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const notes = await getCollection('notes');
+const sortedNotes = notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <BaseLayout title="Notes - Crafty Prash">
@@ -9,11 +13,13 @@ import Card from '../../components/Card.astro';
     <p class="subtitle">Quick reference articles and one-pagers</p>
     
     <div class="cards">
-      <Card 
-        title="Sample Note" 
-        href="/notes/sample"
-        description="A quick one-pager note"
-      />
+      {sortedNotes.map(note => (
+        <Card 
+          title={note.data.title} 
+          href={`/notes/${note.slug}`}
+          description={note.data.description}
+        />
+      ))}
     </div>
   </div>
 </BaseLayout>

@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 
 - Prevent icon flicker on navigation by using CSS-only Phosphor Icons
 
+### Documentation
+
+- Update About page with personal introduction
+
 ### Features
 
 - Add home page with two-column layout and navigation

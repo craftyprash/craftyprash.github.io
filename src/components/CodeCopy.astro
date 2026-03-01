@@ -1,0 +1,76 @@
+---
+---
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const codeBlocks = document.querySelectorAll('pre');
+    
+    codeBlocks.forEach((pre) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper';
+      
+      const button = document.createElement('button');
+      button.className = 'copy-button';
+      button.innerHTML = '<i class="ph ph-copy"></i>';
+      button.setAttribute('aria-label', 'Copy code');
+      
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+      wrapper.appendChild(button);
+      
+      button.addEventListener('click', async () => {
+        const code = pre.querySelector('code')?.textContent || '';
+        await navigator.clipboard.writeText(code);
+        button.innerHTML = '<i class="ph ph-check"></i>';
+        setTimeout(() => {
+          button.innerHTML = '<i class="ph ph-copy"></i>';
+        }, 2000);
+      });
+    });
+  });
+</script>
+
+<style is:global>
+  .code-block-wrapper {
+    position: relative;
+    margin: 1.5rem 0;
+  }
+
+  .code-block-wrapper pre {
+    margin: 0;
+  }
+
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.5rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .copy-button:hover {
+    background: var(--bg-secondary);
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  code[data-theme*=" "],
+  code[data-theme*=" "] span {
+    color: var(--shiki-light);
+    background-color: transparent;
+  }
+
+  .astro-code {
+    padding: 1.5rem !important;
+    padding-top: 2.5rem !important;
+  }
+</style>

@@ -1,6 +1,22 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Card from '../../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const guides = await getCollection('guides');
+
+// Group by guide name and get first chapter of each
+const guideMap = new Map();
+guides.forEach(guide => {
+  const guideName = guide.data.guide || guide.slug;
+  if (!guideMap.has(guideName) || (guide.data.chapter || 0) < (guideMap.get(guideName).data.chapter || 0)) {
+    guideMap.set(guideName, guide);
+  }
+});
+
+const uniqueGuides = Array.from(guideMap.values()).sort((a, b) => 
+  b.data.date.getTime() - a.data.date.getTime()
+);
 ---
 
 <BaseLayout title="Guides - Crafty Prash">
@@ -9,11 +25,13 @@ import Card from '../../components/Card.astro';
     <p class="subtitle">Comprehensive tutorials and documentation</p>
     
     <div class="cards">
-      <Card 
-        title="Sample Guide" 
-        href="/guides/sample"
-        description="A comprehensive guide with chapters"
-      />
+      {uniqueGuides.map(guide => (
+        <Card 
+          title={guide.data.title.replace(/^(Chapter \d+:|Getting Started)\s*-?\s*/i, '') || guide.data.title} 
+          href={`/guides/${guide.slug}`}
+          description={guide.data.description || `Start with: ${guide.data.title}`}
+        />
+      ))}
     </div>
   </div>
 </BaseLayout>

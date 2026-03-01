@@ -59,6 +59,11 @@ pre {
 pre code {
   background: none;
   padding: 0;
+  font-size: 0.875rem;
+}
+
+pre code span {
+  font-style: normal;
 }
 
 h1, h2, h3, h4, h5, h6 {
