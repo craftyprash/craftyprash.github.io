@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import ShareButtons from '../components/ShareButtons.astro';
+import Giscus from '../components/Giscus.astro';
 
 interface Props {
   title: string;
@@ -83,6 +84,10 @@ if (currentSlug && chapters.length > 0) {
           )}
         </nav>
       )}
+
+      <div class="footer">
+        <Giscus />
+      </div>
     </article>
 
     <aside class="toc">

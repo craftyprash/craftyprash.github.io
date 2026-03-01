@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+---
+
+<BaseLayout title="Guides - Crafty Prash">
+  <div class="guides-page">
+    <h1>Guides</h1>
+    <p class="subtitle">Comprehensive tutorials and documentation</p>
+    
+    <div class="cards">
+      <Card 
+        title="Sample Guide" 
+        href="/guides/sample"
+        description="A comprehensive guide with chapters"
+      />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .guides-page {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .guides-page h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+</style>

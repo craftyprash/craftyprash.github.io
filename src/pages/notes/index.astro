@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+---
+
+<BaseLayout title="Notes - Crafty Prash">
+  <div class="notes-page">
+    <h1>Notes</h1>
+    <p class="subtitle">Quick reference articles and one-pagers</p>
+    
+    <div class="cards">
+      <Card 
+        title="Sample Note" 
+        href="/notes/sample"
+        description="A quick one-pager note"
+      />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .notes-page {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .notes-page h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+</style>

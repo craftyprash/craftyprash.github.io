@@ -39,6 +39,14 @@ const currentPath = Astro.url.pathname;
         <span>CraftyPrash</span>
       </a>
       <nav class="nav">
+        <a href="/notes" class:list={['nav-link', { active: currentPath.includes('/notes') }]}>
+          <i class="ph ph-file-text"></i>
+          <span>Notes</span>
+        </a>
+        <a href="/guides" class:list={['nav-link', { active: currentPath.includes('/guides') }]}>
+          <i class="ph ph-book-open"></i>
+          <span>Guides</span>
+        </a>
         <a href="/about" class:list={['nav-link', { active: currentPath.includes('/about') }]}>
           <i class="ph ph-user"></i>
           <span>About</span>
