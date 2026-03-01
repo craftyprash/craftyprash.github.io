@@ -21,6 +21,7 @@ A minimal yet essential Neovim configuration built for modern development workfl
 
 ## Architecture
 
+![Drawing 2026-03-01 17.30.22.excalidraw.png](/notes/drawing-2026-03-01-17-30-22-excalidraw-png)
 ### Core Structure
 
 ```
