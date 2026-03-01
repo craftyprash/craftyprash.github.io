@@ -25,27 +25,33 @@ function sanitizeFilename(filename) {
 }
 
 function processExcalidrawEmbeds(content, sourceDir, imagesPath) {
-  // Match ![[filename.excalidraw]] or ![[filename.excalidraw.md]]
-  const excalidrawRegex = /!\[\[([^\]]+\.excalidraw(?:\.md)?)\]\]/g;
+  // Match ![[filename.excalidraw]] or ![[filename.excalidraw.md]] or ![[filename.excalidraw.png]]
+  const excalidrawRegex = /!\[\[([^\]]+\.excalidraw(?:\.(?:md|png))?)\]\]/g;
   
   let processedContent = content;
   const matches = [...content.matchAll(excalidrawRegex)];
   
   for (const match of matches) {
     const excalidrawFile = match[1];
-    const baseName = excalidrawFile.replace(/\.excalidraw(\.md)?$/, '');
+    const baseName = excalidrawFile.replace(/\.excalidraw(?:\.(?:md|png))?$/, '');
     const sanitizedName = sanitizeFilename(baseName);
     const pngName = `${sanitizedName}.png`;
     
-    // Look for auto-exported PNG file
-    const pngPath = path.join(sourceDir, `${baseName}.excalidraw.png`);
+    // Look for PNG file - could be .excalidraw.png or just the base name
+    let pngPath = path.join(sourceDir, `${baseName}.excalidraw.png`);
+    
+    // If that doesn't exist, try the exact filename if it ends with .png
+    if (!fs.existsSync(pngPath) && excalidrawFile.endsWith('.png')) {
+      pngPath = path.join(sourceDir, excalidrawFile);
+    }
+    
     const destPngPath = path.join(imagesPath, pngName);
     
     if (fs.existsSync(pngPath)) {
       fs.copyFileSync(pngPath, destPngPath);
-      console.log(`  📸 Copied: ${baseName}.excalidraw.png → ${pngName}`);
+      console.log(`  📸 Copied: ${path.basename(pngPath)} → ${pngName}`);
     } else {
-      console.log(`  ⚠️  PNG not found: ${baseName}.excalidraw.png`);
+      console.log(`  ⚠️  PNG not found: ${baseName}.excalidraw.png or ${excalidrawFile}`);
     }
     
     // Replace embed with markdown image
