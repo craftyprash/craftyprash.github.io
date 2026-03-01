@@ -32,6 +32,8 @@ const uniqueGuides = Array.from(guideMap.values()).sort((a, b) =>
             title={guideTitle}
             href={`/guides/${guide.slug}`}
             description={guide.data.description || `${guide.data.title}`}
+            tags={guide.data.tags}
+            date={guide.data.date}
           />
         );
       })}

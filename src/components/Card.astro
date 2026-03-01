@@ -3,14 +3,30 @@ interface Props {
   title: string;
   href: string;
   description?: string;
+  tags?: string[];
+  date?: Date;
 }
 
-const { title, href, description } = Astro.props;
+const { title, href, description, tags = [], date } = Astro.props;
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
 ---
 
 <a href={href} class="card">
   <h3>{title}</h3>
-  {description && <p>{description}</p>}
+  {description && <p class="description">{description}</p>}
+  {(date || tags.length > 0) && (
+    <div class="meta">
+      {date && <time>{formatDate(date)}</time>}
+      {tags.length > 0 && (
+        <div class="tags">
+          {tags.map(tag => <span class="tag">{tag}</span>)}
+        </div>
+      )}
+    </div>
+  )}
 </a>
 
 <style>
@@ -34,9 +50,40 @@ const { title, href, description } = Astro.props;
     color: var(--text-primary);
   }
 
-  .card p {
+  .card .description {
     font-size: 0.9rem;
-    margin: 0;
+    margin: 0 0 0.75rem 0;
     color: var(--text-secondary);
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .meta time {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    background: #2d323b;
+    border-radius: 4px;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+
+  .tag:hover {
+    color: var(--accent);
   }
 </style>

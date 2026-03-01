@@ -18,6 +18,8 @@ const sortedNotes = notes.sort((a, b) => b.data.date.getTime() - a.data.date.get
           title={note.data.title} 
           href={`/notes/${note.slug}`}
           description={note.data.description}
+          tags={note.data.tags}
+          date={note.data.date}
         />
       ))}
     </div>

@@ -154,7 +154,7 @@ function formatDate(date: Date) {
 
   .list-item:hover {
     border-color: var(--accent);
-    background: var(--bg-tertiary);
+    background: #2d323b;
   }
 
   .item-content h3 {
@@ -191,9 +191,14 @@ function formatDate(date: Date) {
   .tag {
     font-size: 0.75rem;
     padding: 0.2rem 0.5rem;
-    background: var(--bg-tertiary);
+    background: #2d323b;
     border-radius: 4px;
     color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+
+  .tag:hover {
+    color: var(--accent);
   }
 
   @media (max-width: 768px) {
