@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Add home page with two-column layout and navigation
 - Add note and guide layouts with TOC and share buttons
 - Add Notes and Guides navigation, update share buttons to LinkedIn/X, add Giscus comments
+- Improve typography and reading experience with optimal line width and spacing
 
 ### Miscellaneous
 
