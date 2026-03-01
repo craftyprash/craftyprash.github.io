@@ -15,17 +15,76 @@ const chapters = [
   chapters={chapters}
   currentSlug="chapter-2"
 >
-  <p>This is chapter 2 of the sample guide.</p>
+  <p>Welcome to Chapter 2! Now that you understand the basics from the previous chapter, we'll explore more advanced topics and techniques. This chapter builds upon the foundation we established earlier.</p>
 
   <h2>Advanced Concepts</h2>
-  <p>Now that you understand the basics, let's dive into more advanced topics.</p>
+  <p>As you become more comfortable with the fundamentals, you'll want to explore more sophisticated approaches. This section covers advanced patterns and best practices that will take your skills to the next level.</p>
+
+  <h3>Complex Scenarios</h3>
+  <p>Real-world applications often involve complex scenarios that require careful consideration. Here are some key points to keep in mind:</p>
+  <ul>
+    <li>Always consider edge cases and error handling</li>
+    <li>Think about scalability from the beginning</li>
+    <li>Document your decisions and reasoning</li>
+    <li>Test thoroughly before deploying</li>
+  </ul>
+
+  <h3>Performance Considerations</h3>
+  <p>Performance becomes increasingly important as your projects grow. Here are some strategies for optimization:</p>
+  <ol>
+    <li>Profile before optimizing - measure what actually needs improvement</li>
+    <li>Focus on algorithmic improvements first</li>
+    <li>Consider caching strategies for frequently accessed data</li>
+    <li>Optimize for the common case, not edge cases</li>
+  </ol>
 
   <h2>Deep Dive</h2>
-  <p>Here we explore complex scenarios and edge cases.</p>
+  <p>Let's explore some specific topics in greater detail. Understanding these concepts will help you make better architectural decisions.</p>
 
-  <h3>Performance Optimization</h3>
-  <p>Tips for optimizing your implementation.</p>
+  <h3>Architecture Patterns</h3>
+  <p>Choosing the right architecture pattern is crucial for long-term maintainability. Consider these factors:</p>
+  
+  <blockquote>
+    <p>The best architecture is the one that fits your specific needs and constraints. Don't blindly follow trends - understand the trade-offs.</p>
+  </blockquote>
+
+  <p>Common patterns include:</p>
+  <ul>
+    <li><strong>Layered Architecture</strong> - Separates concerns into distinct layers</li>
+    <li><strong>Microservices</strong> - Distributes functionality across independent services</li>
+    <li><strong>Event-Driven</strong> - Uses events to trigger and communicate between services</li>
+    <li><strong>Monolithic</strong> - Single unified codebase (not always bad!)</li>
+  </ul>
+
+  <h3>Code Organization</h3>
+  <p>As projects grow, code organization becomes critical. Here are some principles to follow:</p>
+  <ul>
+    <li>Group related functionality together</li>
+    <li>Keep modules focused and cohesive</li>
+    <li>Minimize dependencies between modules</li>
+    <li>Use clear naming conventions</li>
+  </ul>
+
+  <h2>Practical Examples</h2>
+  <p>Theory is important, but practical examples help solidify understanding. Let's look at some real-world scenarios.</p>
+
+  <h3>Example 1: Error Handling</h3>
+  <p>Proper error handling is essential for robust applications. Consider using structured error types and providing meaningful error messages. For example: <code>throw new ValidationError('Invalid input')</code></p>
+
+  <h3>Example 2: State Management</h3>
+  <p>Managing state effectively prevents bugs and makes code easier to reason about. Consider immutable data structures and unidirectional data flow patterns.</p>
+
+  <h2>Common Pitfalls</h2>
+  <p>Learn from common mistakes to avoid them in your own projects:</p>
+  <ol>
+    <li>Premature optimization - Don't optimize before you have data</li>
+    <li>Over-engineering - Keep solutions as simple as possible</li>
+    <li>Ignoring edge cases - They will find you eventually</li>
+    <li>Poor error handling - Fail gracefully and provide useful feedback</li>
+  </ol>
 
   <h2>Summary</h2>
-  <p>You should now have a solid understanding of advanced concepts.</p>
+  <p>You should now have a solid understanding of advanced concepts and how to apply them. The key is to balance theoretical knowledge with practical experience.</p>
+  
+  <p>In the next chapter, we'll cover best practices that tie everything together and help you write production-ready code.</p>
 </GuideLayout>

@@ -51,7 +51,7 @@ const formattedDate = date?.toLocaleDateString('en-US', { year: 'numeric', month
 <style>
   .note-layout {
     display: grid;
-    grid-template-columns: 1fr 200px;
+    grid-template-columns: minmax(0, 720px) 200px;
     gap: 3rem;
     max-width: 1200px;
     margin: 0 auto;
@@ -91,7 +91,8 @@ const formattedDate = date?.toLocaleDateString('en-US', { year: 'numeric', month
   }
 
   .prose {
-    max-width: 100%;
+    max-width: 720px;
+    font-size: 1.0625rem;
   }
 
   .content-footer {

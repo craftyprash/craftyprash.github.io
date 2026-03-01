@@ -89,12 +89,15 @@ const currentPath = Astro.url.pathname;
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--text-primary);
+    line-height: 1;
   }
 
   .logo img {
     width: 48px;
     height: 36px;
     border-radius: 6px;
+    display: block;
+    margin: 0;
   }
 
   .nav {
@@ -109,6 +112,7 @@ const currentPath = Astro.url.pathname;
     gap: 0.5rem;
     color: var(--text-secondary);
     transition: color 0.2s;
+    line-height: 1;
   }
 
   .nav-link:hover {
