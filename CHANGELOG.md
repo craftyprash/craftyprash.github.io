@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file.
 ### Documentation
 
 - Update About page with personal introduction
+- Changelog
 
 ### Features
 
@@ -29,6 +30,9 @@ All notable changes to this project will be documented in this file.
 - Auto-copy Excalidraw PNG exports
 - Redesign home page with compact list view and recent items
 - Add TOC indentation and fix scroll offset for sticky header
+- Removed TOC for notes and allowed better reading experience.
+- Reduce chapter sidebar width and gap, center content at 720px for better reading
+- Redesign with Zed-inspired theme and improved UX
 
 ### Miscellaneous
 
