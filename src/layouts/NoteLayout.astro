@@ -17,43 +17,34 @@ const formattedDate = date?.toLocaleDateString('en-US', { year: 'numeric', month
 
 <BaseLayout title={title}>
   <article class="note-layout">
-    <div class="content-body">
-      <header class="content-header">
-        <h1>{title}</h1>
-        {(date || tags.length > 0) && (
-          <div class="meta">
-            {date && <time datetime={date.toISOString()}>{formattedDate}</time>}
-            {tags.length > 0 && (
-              <div class="tags">
-                {tags.map(tag => <span class="tag">{tag}</span>)}
-              </div>
-            )}
-          </div>
-        )}
-      </header>
-      
-      <div class="prose">
-        <slot />
-      </div>
-      
-      <div class="content-footer">
-        <ShareButtons title={title} />
-        <Giscus />
-      </div>
+    <header class="content-header">
+      <h1>{title}</h1>
+      {(date || tags.length > 0) && (
+        <div class="meta">
+          {date && <time datetime={date.toISOString()}>{formattedDate}</time>}
+          {tags.length > 0 && (
+            <div class="tags">
+              {tags.map(tag => <span class="tag">{tag}</span>)}
+            </div>
+          )}
+        </div>
+      )}
+    </header>
+    
+    <div class="prose">
+      <slot />
     </div>
     
-    <aside class="toc-sidebar">
-      <TableOfContents />
-    </aside>
+    <div class="content-footer">
+      <ShareButtons title={title} />
+      <Giscus />
+    </div>
   </article>
 </BaseLayout>
 
 <style>
   .note-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 720px) 200px;
-    gap: 3rem;
-    max-width: 1200px;
+    max-width: 720px;
     margin: 0 auto;
   }
 
@@ -85,13 +76,7 @@ const formattedDate = date?.toLocaleDateString('en-US', { year: 'numeric', month
     color: var(--text-secondary);
   }
 
-  .content-body {
-    grid-column: 1;
-    min-width: 0;
-  }
-
   .prose {
-    max-width: 720px;
     font-size: 1.0625rem;
   }
 
@@ -101,20 +86,5 @@ const formattedDate = date?.toLocaleDateString('en-US', { year: 'numeric', month
     border-top: 1px solid var(--border);
   }
 
-  .toc-sidebar {
-    grid-column: 2;
-    position: sticky;
-    top: 5rem;
-    height: fit-content;
-  }
 
-  @media (max-width: 1024px) {
-    .note-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .toc-sidebar {
-      display: none;
-    }
-  }
 </style>
