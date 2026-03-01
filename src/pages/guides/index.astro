@@ -25,13 +25,16 @@ const uniqueGuides = Array.from(guideMap.values()).sort((a, b) =>
     <p class="subtitle">Comprehensive tutorials and documentation</p>
     
     <div class="cards">
-      {uniqueGuides.map(guide => (
-        <Card 
-          title="Sample Guide"
-          href={`/guides/${guide.slug}`}
-          description="A comprehensive guide with multiple chapters"
-        />
-      ))}
+      {uniqueGuides.map(guide => {
+        const guideTitle = guide.data.guide ? guide.data.guide.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : guide.data.title;
+        return (
+          <Card 
+            title={guideTitle}
+            href={`/guides/${guide.slug}`}
+            description={guide.data.description || `${guide.data.title}`}
+          />
+        );
+      })}
     </div>
   </div>
 </BaseLayout>
