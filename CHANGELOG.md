@@ -23,4 +23,5 @@ All notable changes to this project will be documented in this file.
 
 - Initial project setup with Astro, TailwindCSS, MDX, and sitemap
 - Add Vercel deployment configuration
+- Switch to GitHub Pages deployment
 
