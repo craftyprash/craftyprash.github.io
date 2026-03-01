@@ -49,7 +49,7 @@
   document.addEventListener('DOMContentLoaded', generateTOC);
 </script>
 
-<style>
+<style is:global>
   .toc {
     font-size: 0.9rem;
   }
@@ -62,13 +62,29 @@
   }
 
   .toc ul {
-    list-style: none;
+    list-style: none !important;
+    list-style-type: none !important;
+    padding: 0;
+    margin: 0;
+  }
+
+  #toc-list ul {
+    list-style: none !important;
+    list-style-type: none !important;
     padding: 0;
     margin: 0;
   }
 
   .toc li {
     margin: 0.5rem 0;
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+
+  #toc-list li {
+    margin: 0.5rem 0;
+    list-style: none !important;
+    list-style-type: none !important;
   }
 
 

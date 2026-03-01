@@ -4,9 +4,8 @@ date: 2024-03-01T00:00:00.000Z
 tags:
   - nvim
   - vi
-description: Setting up Neovim for a keyboard driven workflow
+description: Setting up Neovim for a keyboar
 ---
-
 # Neovim 0.12 Configuration
 
 A minimal yet essential Neovim configuration built for modern development workflows. This setup prioritizes keyboard-centric navigation, LSP-native features, and a clean, distraction-free editing experience.
@@ -21,7 +20,6 @@ A minimal yet essential Neovim configuration built for modern development workfl
 
 ## Architecture
 
-![Drawing 2026-03-01 17.30.22](/images/drawing-2026-03-01-17-30-22.png)
 ### Core Structure
 
 ```

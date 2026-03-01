@@ -7,8 +7,9 @@ tags:
   - aws
 description: Setting up Kamal with AWS ECR
 ---
+# Kamal Config
+
 ![Drawing 2026-03-01 16.50.36](/images/drawing-2026-03-01-16-50-36.png)
-### Kamal Config
 
 This is the common settings such as service and image names, registry, ssh user, and secrets that are keys required for the service. It also includes builder section.
 

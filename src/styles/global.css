@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #0d1117;
-  --bg-secondary: #161b22;
-  --bg-tertiary: #21262d;
-  --text-primary: #c9d1d9;
-  --text-secondary: #8b949e;
-  --text-tertiary: #6e7681;
-  --border: #30363d;
-  --accent: #58a6ff;
-  --accent-hover: #79c0ff;
-  --code-bg: #161b22;
+  --bg-primary: #282c33;
+  --bg-secondary: #2f343e;
+  --bg-tertiary: #3a3a3a;
+  --text-primary: #dce0e4;
+  --text-secondary: #a8a8a8;
+  --text-tertiary: #808080;
+  --border: #4a4a4a;
+  --accent: #4fc1ff;
+  --accent-hover: #75d7ff;
+  --code-bg: #2f343e;
 }
 
 * {
@@ -40,7 +40,7 @@ a:hover {
 code {
   font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
   font-size: 0.9em;
-  background: var(--code-bg);
+  background: #303945;
   padding: 0.2em 0.4em;
   border-radius: 3px;
   color: #e6edf3;
@@ -51,7 +51,6 @@ pre {
   padding: 1rem;
   border-radius: 6px;
   overflow-x: auto;
-  border: 1px solid var(--border);
   margin: 1.5rem 0;
   line-height: 1.5;
 }
@@ -82,21 +81,28 @@ h3:first-child {
 
 h1 { font-size: 2em; }
 h2 { 
-  font-size: 1.5em; 
-  border-bottom: 1px solid var(--border); 
-  padding-bottom: 0.3em;
+  font-size: 1.5em;
 }
 h3 { font-size: 1.25em; }
 
 p {
   margin: 1em 0;
-  line-height: 1.65;
+  line-height: 1.4;
 }
 
 ul, ol {
   margin: 1em 0;
-  padding-left: 2em;
-  line-height: 1.65;
+  padding-left: 1.5em;
+  line-height: 1.4;
+  list-style-position: outside;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+ul {
+  list-style-type: disc;
 }
 
 li {
