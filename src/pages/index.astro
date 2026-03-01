@@ -1,44 +1,97 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Card from '../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const allNotes = await getCollection('notes');
+const recentNotes = allNotes
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 5);
+
+const allGuides = await getCollection('guides');
+const guideMap = new Map();
+allGuides.forEach(guide => {
+  const guideName = guide.data.guide || guide.slug;
+  if (!guideMap.has(guideName) || (guide.data.chapter || 0) < (guideMap.get(guideName).data.chapter || 0)) {
+    guideMap.set(guideName, guide);
+  }
+});
+
+const recentGuides = Array.from(guideMap.values())
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 5);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
 ---
 
 <BaseLayout title="Crafty Prash">
   <div class="home-page">
     <div class="hero">
       <h1>Welcome</h1>
-      <p>Quick notes and comprehensive guides</p>
+      <p>Technical notes and comprehensive guides</p>
     </div>
     
-    <div class="sections">
-      <section>
-        <h2>Notes</h2>
-        <div class="cards">
-          <Card 
-            title="Sample Note" 
-            href="/notes/sample"
-            description="A quick one-pager note"
-          />
-        </div>
-      </section>
+    <section class="content-section">
+      <div class="section-header">
+        <h2>Recent Notes</h2>
+        <a href="/notes" class="view-all">View All →</a>
+      </div>
+      <div class="list">
+        {recentNotes.map(note => (
+          <a href={`/notes/${note.slug}`} class="list-item">
+            <div class="item-content">
+              <h3>{note.data.title}</h3>
+              {note.data.description && <p class="description">{note.data.description}</p>}
+              <div class="meta">
+                <time>{formatDate(note.data.date)}</time>
+                {note.data.tags.length > 0 && (
+                  <div class="tags">
+                    {note.data.tags.map(tag => <span class="tag">{tag}</span>)}
+                  </div>
+                )}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
 
-      <section>
-        <h2>Guides</h2>
-        <div class="cards">
-          <Card 
-            title="Sample Guide" 
-            href="/guides/sample"
-            description="A comprehensive guide with chapters"
-          />
-        </div>
-      </section>
-    </div>
+    <section class="content-section">
+      <div class="section-header">
+        <h2>Recent Guides</h2>
+        <a href="/guides" class="view-all">View All →</a>
+      </div>
+      <div class="list">
+        {recentGuides.map(guide => {
+          const guideTitle = guide.data.guide 
+            ? guide.data.guide.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') 
+            : guide.data.title;
+          return (
+            <a href={`/guides/${guide.slug}`} class="list-item">
+              <div class="item-content">
+                <h3>{guideTitle}</h3>
+                <p class="description">{guide.data.description || guide.data.title}</p>
+                <div class="meta">
+                  <time>{formatDate(guide.data.date)}</time>
+                  {guide.data.tags.length > 0 && (
+                    <div class="tags">
+                      {guide.data.tags.map(tag => <span class="tag">{tag}</span>)}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
   </div>
 </BaseLayout>
 
 <style>
   .home-page {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
   }
 
@@ -48,7 +101,7 @@ import Card from '../components/Card.astro';
 
   .hero h1 {
     font-size: 3rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .hero p {
@@ -56,22 +109,91 @@ import Card from '../components/Card.astro';
     color: var(--text-secondary);
   }
 
-  .sections {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 3rem;
+  .content-section {
+    margin-bottom: 4rem;
   }
 
-  .sections h2 {
-    font-size: 2rem;
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 1.5rem;
-    border-bottom: none;
   }
 
-  .cards {
+  .section-header h2 {
+    font-size: 1.75rem;
+    margin: 0;
+    border: none;
+    padding: 0;
+  }
+
+  .view-all {
+    color: var(--accent);
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+
+  .view-all:hover {
+    color: var(--accent-hover);
+  }
+
+  .list {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .list-item {
+    display: block;
+    padding: 1rem 1.25rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+
+  .list-item:hover {
+    border-color: var(--accent);
+    background: var(--bg-tertiary);
+  }
+
+  .item-content h3 {
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+  }
+
+  .description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 0.75rem 0;
+    line-height: 1.5;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .meta time {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    color: var(--text-secondary);
   }
 
   @media (max-width: 768px) {
@@ -79,8 +201,8 @@ import Card from '../components/Card.astro';
       font-size: 2rem;
     }
 
-    .sections {
-      grid-template-columns: 1fr;
+    .list-item {
+      padding: 0.875rem 1rem;
     }
   }
 </style>
