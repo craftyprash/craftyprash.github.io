@@ -28,11 +28,21 @@ npm run preview
 
 ## Deployment
 
-This site is configured for Vercel deployment:
+This site is configured for GitHub Pages deployment:
 
-1. Push to GitHub
-2. Import project in Vercel
-3. Deploy automatically on push to main
+1. **Push to GitHub:**
+   ```bash
+   git remote add origin https://github.com/craftyprash/craftyprash.github.io.git
+   git push -u origin main
+   ```
+
+2. **Enable GitHub Pages:**
+   - Go to repository Settings → Pages
+   - Source: GitHub Actions
+   - The site will auto-deploy on every push to main
+
+3. **Access your site:**
+   - https://craftyprash.github.io
 
 ## Content Structure
 
