@@ -47,7 +47,7 @@ function formatDate(date: Date) {
                 <time>{formatDate(note.data.date)}</time>
                 {note.data.tags.length > 0 && (
                   <div class="tags">
-                    {note.data.tags.map(tag => <span class="tag">{tag}</span>)}
+                    {note.data.tags.map((tag: string) => <span class="tag">{tag}</span>)}
                   </div>
                 )}
               </div>
@@ -76,7 +76,7 @@ function formatDate(date: Date) {
                   <time>{formatDate(guide.data.date)}</time>
                   {guide.data.tags.length > 0 && (
                     <div class="tags">
-                      {guide.data.tags.map(tag => <span class="tag">{tag}</span>)}
+                      {guide.data.tags.map((tag: string) => <span class="tag">{tag}</span>)}
                     </div>
                   )}
                 </div>
