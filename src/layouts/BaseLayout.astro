@@ -21,7 +21,15 @@ const currentPath = Astro.url.pathname;
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="preload" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" as="style" />
+  <script is:inline>
+    (function() {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css';
+      document.head.appendChild(link);
+    })();
+  </script>
 </head>
 <body>
   <header class="top-bar">
