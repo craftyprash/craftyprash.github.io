@@ -37,16 +37,15 @@ function processExcalidrawEmbeds(content, sourceDir, imagesPath) {
     const sanitizedName = sanitizeFilename(baseName);
     const pngName = `${sanitizedName}.png`;
     
-    // Check if .excalidraw.md file exists
-    const excalidrawPath = path.join(sourceDir, excalidrawFile);
-    const excalidrawMdPath = excalidrawFile.endsWith('.md') 
-      ? excalidrawPath 
-      : `${excalidrawPath}.md`;
+    // Look for auto-exported PNG file
+    const pngPath = path.join(sourceDir, `${baseName}.excalidraw.png`);
+    const destPngPath = path.join(imagesPath, pngName);
     
-    if (fs.existsSync(excalidrawMdPath)) {
-      // Copy as PNG placeholder (Excalidraw CLI export would go here)
-      // For now, we'll just note it needs manual export
-      console.log(`  ⚠️  Excalidraw found: ${excalidrawFile} - export to PNG manually`);
+    if (fs.existsSync(pngPath)) {
+      fs.copyFileSync(pngPath, destPngPath);
+      console.log(`  📸 Copied: ${baseName}.excalidraw.png → ${pngName}`);
+    } else {
+      console.log(`  ⚠️  PNG not found: ${baseName}.excalidraw.png`);
     }
     
     // Replace embed with markdown image
