@@ -11,11 +11,12 @@ interface Props {
   tags?: string[];
 }
 
-const { title, date, tags = [] } = Astro.props;
+const { title, description, date, tags = [] } = Astro.props;
 const formattedDate = date?.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const publishedTime = date?.toISOString();
 ---
 
-<BaseLayout title={title}>
+<BaseLayout title={title} description={description} type="article" publishedTime={publishedTime}>
   <article class="note-layout">
     <div class="author-meta">
       <a href="/about">
