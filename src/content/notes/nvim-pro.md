@@ -251,6 +251,152 @@ Programming is a visual task. Your editor should look good.
 
 Everything aligned. Ghostty theme matches Neovim theme. Tmux theme matches both. Cohesive.
 
+## Ghostty and Tmux Config
+
+Ghostty makes use of Atom One Dark theme alongside font and blur effects:
+`~/.config/ghostty/config`
+```toml
+theme = "Atom One Dark"
+font-family = "JetBrainsMono Nerd Font"
+font-size = 15
+background-opacity = 0.95
+background-blur-radius = 20
+# macOS-specific settings
+macos-titlebar-style = hidden
+macos-option-as-alt = true
+
+mouse-hide-while-typing = true
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+```
+
+Here's my Tmux config for reference:
+`~/.tmux.conf`
+```bash
+# This ensures that tmux itself uses its 256-color mode
+# Ghostty echo $TERM will also show tmux-256color
+set -g default-terminal "tmux-256color" 
+
+# ensure that xterm-256color (used by many terminals) supports true-color RGB
+set -ag terminal-overrides ",xterm-256color:RGB" 
+
+set -g escape-time 10            # escape time delay
+set -g history-limit 1000000     # increase history size (from 2,000)
+set -g renumber-windows on       # renumber all windows when any window is closed
+
+# Enable tmux to pass clipboard operations through the terminal
+set -g set-clipboard on          # use system clipboard
+set -g allow-passthrough on
+
+set -g status-position bottom    # top / bottom
+set -g focus-events on           # enable focus events for terminals that support them, REQUIRED for vim-tmux-navigator to work
+
+# remap prefix to Control + a
+set -g prefix C-a
+unbind C-b
+bind C-a send-prefix
+
+bind x kill-pane # skip "kill-pane 1? (y/n)" prompt
+
+# switch mouse support on
+set-option -g mouse on
+
+# Set the base index for windows to 1 instead of 0
+set -g base-index 1
+setw -g pane-base-index 1
+
+# Use vim keybindings in copy mode
+setw -g mode-keys vi
+
+# Resize panes using h, j, k, l
+bind -r h resize-pane -L 2   # Resize 2 cells to the left
+bind -r j resize-pane -D 2   # Resize 2 cells down
+bind -r k resize-pane -U 2   # Resize 2 cells up
+bind -r l resize-pane -R 2   # Resize 2 cells to the right
+
+# split panes using | and -
+unbind %
+bind | split-window -h -c "#{pane_current_path}"
+
+unbind '"'
+bind - split-window -v -c "#{pane_current_path}"
+
+bind c new-window -c "#{pane_current_path}"
+
+bind C-l send-keys 'C-l'
+
+# reload tmux C-a + r
+unbind r
+bind r source-file ~/.tmux.conf \; display-message "~/.tmux.conf reloaded"
+
+# Copy and paste shortcuts (use "space" for selection)
+bind -T copy-mode-vi 'v' send-keys -X begin-selection # start selecting text with "v"
+bind -T copy-mode-vi 'y' send-keys -X copy-pipe-and-cancel "pbcopy"
+unbind -T copy-mode-vi MouseDragEnd1Pane # don't exit copy mode when dragging with mouse
+
+# Check if tpm is installed, if not, clone it
+if-shell "[ ! -d ~/.tmux/plugins/tpm ]" \
+  "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"
+
+# Set up tpm
+set -g @plugin 'tmux-plugins/tpm'
+
+# Set theme
+source-file ~/.config/tmux/zed_inspired.tmux
+
+# status overrides
+set -g status-right ''
+set -g status-left '#S'
+set -g status-left-style 'fg=color8'
+set -g status-position top
+set -g status-justify absolute-centre
+
+# for navigating panes and vim/nvim with Ctrl-hjkl
+set -g @plugin 'christoomey/vim-tmux-navigator'
+
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @yank_selection 'clipboard'
+set -g @yank_selection_mouse 'clipboard'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run -b '~/.tmux/plugins/tpm/tpm'
+
+# Default shell
+set -g default-shell /bin/zsh
+set -g default-command "zsh -l"
+```
+
+Here's the zed inspired theme used for Tmux:
+`~/.config/tmux/zed_inspired.tmux`
+```bash
+### One Dark inspired tmux theme
+
+# Base colors
+set -g status-style "bg=#282c34 fg=#abb2bf"
+set -g message-style "bg=#282c34 fg=#61afef"
+set -g message-command-style "bg=#282c34 fg=#61afef"
+
+# Pane borders
+set -g pane-border-style "fg=#3e4451"
+set -g pane-active-border-style "fg=#61afef"
+
+# Status left/right
+set -g status-left "#[fg=#61afef] #S "
+set -g status-right "#[fg=#56b6c2] %Y-%m-%d  %H:%M "
+
+# Window list
+setw -g window-status-style "fg=#5c6370 bg=#282c34"
+setw -g window-status-current-style "fg=#abb2bf bg=#282c34 bold"
+
+setw -g window-status-format " #I:#W "
+setw -g window-status-current-format " #I:#W "
+
+# Mode (copy-mode etc.)
+setw -g mode-style "bg=#3e4451 fg=#61afef"
+```
+
 ## Java: The Special Case
 
 Let's talk about Java. It's my primary language. Getting it to work in Neovim? Historically painful.
