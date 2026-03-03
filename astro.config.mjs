@@ -10,9 +10,11 @@ export default defineConfig({
     sitemap()
   ],
   markdown: {
+    //https://shiki.style/themes
     syntaxHighlight: 'shiki',
     shikiConfig: {
-      theme: 'nord',
+      // theme: 'nord',
+      theme: 'one-dark-pro',
       wrap: true,
     },
   },
