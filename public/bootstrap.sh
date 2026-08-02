@@ -81,7 +81,18 @@ log "Unlocking Bitwarden vault"
 export BW_SESSION="$(bw unlock --raw)"
 
 # ---------------------------------------------------------------------------
-# 4. Pull dotfiles and apply everything (runs the run_once_* setup scripts)
+# 4. Retrieve the age key that decrypts the SSH keys / PEMs (kept in Bitwarden,
+#    never in the repo). chezmoi decrypts with it at apply time.
+# ---------------------------------------------------------------------------
+log "Fetching age decryption key from Bitwarden (item: chezmoi-age-key)"
+mkdir -p "$HOME/.config/chezmoi"
+bw get notes chezmoi-age-key > "$HOME/.config/chezmoi/key.txt"
+chmod 600 "$HOME/.config/chezmoi/key.txt"
+grep -q 'AGE-SECRET-KEY' "$HOME/.config/chezmoi/key.txt" \
+  || { echo "age key not found in Bitwarden item 'chezmoi-age-key' — aborting"; exit 1; }
+
+# ---------------------------------------------------------------------------
+# 5. Pull dotfiles and apply everything (runs the run_once_* setup scripts)
 # ---------------------------------------------------------------------------
 log "Initializing and applying chezmoi from $REPO"
 # Bare machine has no SSH key yet, so clone the dotfiles over HTTPS (gh set up
