@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 const allNotes = await getCollection('notes');
 const recentNotes = allNotes
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 5);
+  .slice(0, 4);
 
 const allGuides = await getCollection('guides');
 const guideMap = new Map();
@@ -15,77 +15,145 @@ allGuides.forEach(guide => {
     guideMap.set(guideName, guide);
   }
 });
-
 const recentGuides = Array.from(guideMap.values())
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 5);
+  .slice(0, 3);
+
+const projects = [
+  {
+    icon: 'ph-lock-key',
+    name: 'seclogin',
+    lang: 'Rust',
+    href: 'https://github.com/craftyshelf/seclogin',
+    description: 'A tray app that opens SSM port-forward tunnels to private AWS resources. No VPN, no bastion, no separate plugin.',
+  },
+  {
+    icon: 'ph-compass',
+    name: 'Drishtic',
+    lang: 'in progress',
+    soon: true,
+    description: 'A Delivery Knowledge Platform — models engineering delivery as one connected graph of people, systems, initiatives, releases and work, so every human, integration and AI agent sees it through the perspective that fits them.',
+  },
+  {
+    icon: 'ph-coffee',
+    name: 'quarkus-enterprise-starter',
+    lang: 'Java',
+    href: 'https://github.com/craftyprash/quarkus-enterprise-starter',
+    description: 'An opinionated starting point for enterprise Java on Quarkus.',
+  },
+  {
+    icon: 'ph-keyboard',
+    name: 'nvim-pro',
+    lang: 'Lua',
+    href: 'https://github.com/craftyprash/nvim-pro',
+    description: 'My Neovim setup, built as a real IDE-grade dev environment — with tutorials.',
+  },
+];
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 ---
 
-<BaseLayout title="Crafty Prash" description="Technical notes and comprehensive guides on software development, DevOps, and cloud technologies">
+<BaseLayout title="Crafty Prash" description="Hands-on CTO building developer and ops tools. Notes, guides, and the products I ship.">
   <div class="home-page">
-    <div class="hero">
-      <h1>Welcome</h1>
-      <p>Technical notes and comprehensive guides</p>
-    </div>
-    
-    <section class="content-section">
-      <div class="section-header">
-        <h2>Recent Notes</h2>
-        <a href="/notes" class="view-all">View All →</a>
-      </div>
-      <div class="list">
-        {recentNotes.map(note => (
-          <a href={`/notes/${note.slug}`} class="list-item">
-            <div class="item-content">
-              <h3>{note.data.title}</h3>
-              {note.data.description && <p class="description">{note.data.description}</p>}
-              <div class="meta">
-                <time>{formatDate(note.data.date)}</time>
-                {note.data.tags.length > 0 && (
-                  <div class="tags">
-                    {note.data.tags.map((tag: string) => <span class="tag">{tag}</span>)}
-                  </div>
-                )}
-              </div>
-            </div>
-          </a>
-        ))}
+    <section class="hero">
+      <h1>Prashant Padmanabhan</h1>
+      <p class="tagline">
+        Hands-on CTO. 20+ years building enterprise systems — I care as much about the
+        tools and the workflow as the product itself.
+      </p>
+      <div class="hero-links">
+        <a href="https://github.com/craftyprash" target="_blank" rel="noopener"><i class="ph ph-github-logo"></i> @craftyprash</a>
+        <a href="https://github.com/craftyshelf" target="_blank" rel="noopener"><i class="ph ph-wrench"></i> @craftyshelf</a>
+        <a href="/about"><i class="ph ph-user"></i> About</a>
       </div>
     </section>
 
     <section class="content-section">
       <div class="section-header">
-        <h2>Recent Guides</h2>
-        <a href="/guides" class="view-all">View All →</a>
+        <h2>What I'm building</h2>
       </div>
-      <div class="list">
-        {recentGuides.map(guide => {
-          const guideTitle = guide.data.guide 
-            ? guide.data.guide.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') 
-            : guide.data.title;
-          return (
-            <a href={`/guides/${guide.slug}`} class="list-item">
+      <div class="projects">
+        {projects.map(p => {
+          const inner = (
+            <>
+              <div class="project-icon"><i class={`ph ${p.icon}`}></i></div>
+              <div class="project-body">
+                <div class="project-title">
+                  <h3>{p.name}</h3>
+                  <span class:list={['lang', { soon: p.soon }]}>{p.soon ? 'coming soon' : p.lang}</span>
+                </div>
+                <p class="description">{p.description}</p>
+              </div>
+              {!p.soon && <i class="ph ph-arrow-up-right project-arrow"></i>}
+            </>
+          );
+          return p.soon
+            ? <div class="project-card is-soon">{inner}</div>
+            : <a href={p.href} target="_blank" rel="noopener" class="project-card">{inner}</a>;
+        })}
+      </div>
+    </section>
+
+    {recentNotes.length > 0 && (
+      <section class="content-section">
+        <div class="section-header">
+          <h2>Recent Notes</h2>
+          <a href="/notes" class="view-all">View All →</a>
+        </div>
+        <div class="list">
+          {recentNotes.map(note => (
+            <a href={`/notes/${note.slug}`} class="list-item">
               <div class="item-content">
-                <h3>{guideTitle}</h3>
-                <p class="description">{guide.data.description || guide.data.title}</p>
+                <h3>{note.data.title}</h3>
+                {note.data.description && <p class="description">{note.data.description}</p>}
                 <div class="meta">
-                  <time>{formatDate(guide.data.date)}</time>
-                  {guide.data.tags.length > 0 && (
+                  <time>{formatDate(note.data.date)}</time>
+                  {note.data.tags.length > 0 && (
                     <div class="tags">
-                      {guide.data.tags.map((tag: string) => <span class="tag">{tag}</span>)}
+                      {note.data.tags.map((tag: string) => <span class="tag">{tag}</span>)}
                     </div>
                   )}
                 </div>
               </div>
             </a>
-          );
-        })}
-      </div>
-    </section>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {recentGuides.length > 0 && (
+      <section class="content-section">
+        <div class="section-header">
+          <h2>Recent Guides</h2>
+          <a href="/guides" class="view-all">View All →</a>
+        </div>
+        <div class="list">
+          {recentGuides.map(guide => {
+            const guideTitle = guide.data.guide
+              ? guide.data.guide.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+              : guide.data.title;
+            return (
+              <a href={`/guides/${guide.slug}`} class="list-item">
+                <div class="item-content">
+                  <h3>{guideTitle}</h3>
+                  <p class="description">{guide.data.description || guide.data.title}</p>
+                  <div class="meta">
+                    <time>{formatDate(guide.data.date)}</time>
+                    {guide.data.tags.length > 0 && (
+                      <div class="tags">
+                        {guide.data.tags.map((tag: string) => <span class="tag">{tag}</span>)}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
   </div>
 </BaseLayout>
 
@@ -96,21 +164,42 @@ function formatDate(date: Date) {
   }
 
   .hero {
-    margin-bottom: 4rem;
+    margin-bottom: 3.5rem;
   }
 
   .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
   }
 
-  .hero p {
-    font-size: 1.25rem;
+  .hero .tagline {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 42rem;
+    line-height: 1.6;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+  }
+
+  .hero-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
   }
 
+  .hero-links a:hover {
+    color: var(--accent);
+  }
+
   .content-section {
-    margin-bottom: 4rem;
+    margin-bottom: 3.5rem;
   }
 
   .section-header {
@@ -121,7 +210,7 @@ function formatDate(date: Date) {
   }
 
   .section-header h2 {
-    font-size: 1.75rem;
+    font-size: 1.6rem;
     margin: 0;
     border: none;
     padding: 0;
@@ -137,6 +226,96 @@ function formatDate(date: Date) {
     color: var(--accent-hover);
   }
 
+  /* Projects */
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .project-card {
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .project-card.is-soon {
+    cursor: default;
+    border-style: dashed;
+    opacity: 0.85;
+  }
+
+  .project-card.is-soon:hover {
+    border-color: var(--border);
+    box-shadow: none;
+  }
+
+  .lang.soon {
+    color: var(--accent);
+    background: rgba(79, 193, 255, 0.12);
+  }
+
+  .project-icon {
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .project-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .project-title h3 {
+    font-size: 1.05rem;
+    margin: 0;
+    color: var(--text-primary);
+  }
+
+  .project-title .lang {
+    font-size: 0.72rem;
+    padding: 0.12rem 0.45rem;
+    background: #2d323b;
+    border-radius: 4px;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+  }
+
+  .project-body .description {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin: 0.4rem 0 0 0;
+    line-height: 1.5;
+  }
+
+  .project-arrow {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .project-card:hover .project-arrow {
+    opacity: 1;
+  }
+
+  /* Notes / Guides lists */
   .list {
     display: flex;
     flex-direction: column;
@@ -204,6 +383,10 @@ function formatDate(date: Date) {
   @media (max-width: 768px) {
     .hero h1 {
       font-size: 2rem;
+    }
+
+    .projects {
+      grid-template-columns: 1fr;
     }
 
     .list-item {

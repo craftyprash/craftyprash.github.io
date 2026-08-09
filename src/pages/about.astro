@@ -7,10 +7,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <h1>About</h1>
     <div class="content">
       <p>
-        I'm CraftyPrash on the internet or just Prashant, and I am a passionate software creator and technical writer. I love building systems that are performant and beautiful from the inside. Here I will be sharing my knowledge through detailed technical guides and articles.
+        I'm Prashant — <strong>CraftyPrash</strong> online. A hands-on CTO with 20+ years
+        building enterprise systems, still happiest in the terminal.
       </p>
       <p>
-        With extensive experience in software development and system architecture, I focus on creating content that helps developers understand complex concepts and implement best practices.
+        I care as much about the tools and the workflow as the product itself. This site is
+        where I keep working notes and the occasional guide — things I've worked out and want
+        to find again. Nothing polished for its own sake; just what's useful.
+      </p>
+      <p>
+        I build with Java / Quarkus, Rust, and PostgreSQL on a keyboard-driven Arch and macOS
+        setup, and I ship developer and ops tools at
+        <a href="https://github.com/craftyshelf" target="_blank" rel="noopener">@craftyshelf</a>.
+        I also wrote a book — <em>Java EE 8 and Angular</em>.
+      </p>
+      <figure class="setup">
+        <img src="/images/voyager-zsa.jpg" alt="My daily driver — a ZSA Voyager split keyboard" />
+        <figcaption>My daily driver — a ZSA Voyager.</figcaption>
+      </figure>
+      <p class="links">
+        <a href="https://github.com/craftyprash" target="_blank" rel="noopener"><i class="ph ph-github-logo"></i> github.com/craftyprash</a>
+        <a href="https://github.com/craftyshelf" target="_blank" rel="noopener"><i class="ph ph-wrench"></i> github.com/craftyshelf</a>
       </p>
     </div>
   </div>
@@ -32,5 +49,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     color: var(--text-primary);
     line-height: 1.65;
     margin: 1.5em 0;
+  }
+
+  .content .setup {
+    margin: 2rem 0;
+  }
+
+  .content .setup img {
+    width: 100%;
+    max-width: 520px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    display: block;
+  }
+
+  .content .setup figcaption {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    margin-top: 0.5rem;
+  }
+
+  .content .links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .content .links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.95rem;
   }
 </style>
