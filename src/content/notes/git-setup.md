@@ -89,8 +89,12 @@ Host github.com
   User git
   IdentityFile ~/.ssh/keys/github_personal_ed25519
 
-# Work GitHub (override for company org)
-Match host github.com exec "echo %r | grep -q 'acme-corp'"
+# Work GitHub — same host, different key, via an alias.
+# (GitHub always connects as user "git", so the org can't be matched at
+#  connection time — a host alias is the reliable way to switch keys.)
+Host github-work
+  HostName github.com
+  User git
   IdentityFile ~/.ssh/keys/github_work_ed25519
 
 # Work Forgejo
@@ -100,6 +104,17 @@ Host forgejo.company.com
   User git
   IdentityFile ~/.ssh/keys/forgejo_work_ed25519
 ```
+
+Because GitHub always connects as user `git`, the org lives only in the repo *path* — which SSH can't see at connection time. So a host alias (`github-work`) is the reliable way to select the work key. To keep ghq's clean `github.com/org` layout while still routing through the alias, add a URL rewrite to `~/.gitconfig`:
+
+```ini
+[url "git@github-work:acme-corp/"]
+  insteadOf = git@github.com:acme-corp/
+```
+
+Now you clone and reference `github.com/acme-corp/...` normally — ghq files it under `~/Developer/github.com/acme-corp/`, `includeIf` matches for identity, and Git transparently connects with the work key.
+
+> Avoid the `Match ... exec "echo %r | grep ..."` approach here — `%r` is always `git` on GitHub, so it never matches and silently falls back to your default key. That's fine for reading public repos, but pushes to the work account will fail.
 
 **Step 4: Clone repos with ghq**
 ```bash
@@ -438,6 +453,11 @@ commit_parsers = [
 [includeIf "gitdir:~/Developer/forgejo.company.com/**"]
   path = ~/.git-work-config
 
+# Route work-org repos through the SSH host alias (selects the work key),
+# while keeping clean github.com/<org> paths for ghq and includeIf.
+[url "git@github-work:acme-corp/"]
+  insteadOf = git@github.com:acme-corp/
+
 [alias]
   st = status -sb
   co = checkout
@@ -542,8 +562,12 @@ Host github.com
   User git
   IdentityFile ~/.ssh/keys/github_personal_ed25519
 
-# Work GitHub (override for company org)
-Match host github.com exec "echo %r | grep -q 'acme-corp'"
+# Work GitHub — same host, different key, via an alias.
+# (GitHub always connects as user "git", so the org can't be matched at
+#  connection time — a host alias is the reliable way to switch keys.)
+Host github-work
+  HostName github.com
+  User git
   IdentityFile ~/.ssh/keys/github_work_ed25519
 
 # Work Forgejo
