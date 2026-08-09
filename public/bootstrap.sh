@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# bootstrap.sh — provision a fresh macOS or Arch machine from scratch.
+# bootstrap.sh — provision a fresh macOS or Fedora machine from scratch.
 #
 # This script contains NO secrets, so it is published on my public site and can
 # be fetched on a brand-new machine that has nothing set up yet:
@@ -51,13 +51,15 @@ if [[ "$os" == "Darwin" ]]; then
   log "Installing bootstrap tools (chezmoi, gh, bitwarden-cli)"
   brew install chezmoi gh bitwarden-cli
 
-elif [[ -f /etc/arch-release ]]; then
-  log "Arch Linux detected"
-  log "Installing bootstrap tools (chezmoi, github-cli, bitwarden-cli, git, base-devel)"
-  sudo pacman -Syu --needed --noconfirm chezmoi github-cli bitwarden-cli git base-devel
+elif [[ -f /etc/fedora-release ]]; then
+  log "Fedora detected"
+  log "Installing bootstrap tools (git, gh, node/npm; chezmoi + bitwarden-cli via installers)"
+  sudo dnf install -y git gh nodejs npm
+  have chezmoi || sudo sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin
+  have bw       || sudo npm install -g @bitwarden/cli
 
 else
-  echo "Unsupported OS: $os. This script supports macOS and Arch Linux." >&2
+  echo "Unsupported OS: $os. This script supports macOS and Fedora." >&2
   exit 1
 fi
 
