@@ -53,10 +53,17 @@ if [[ "$os" == "Darwin" ]]; then
 
 elif [[ -f /etc/fedora-release ]]; then
   log "Fedora detected"
-  log "Installing bootstrap tools (git, gh, node/npm; chezmoi + bitwarden-cli via installers)"
-  sudo dnf install -y git gh nodejs npm
+  log "Installing bootstrap tools (git, gh; chezmoi + bitwarden-cli as standalone binaries)"
+  sudo dnf install -y git gh unzip
   have chezmoi || sudo sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin
-  have bw       || sudo npm install -g @bitwarden/cli
+  # bitwarden-cli as a standalone binary (no nodejs/npm needed — node comes from mise for dev use)
+  if ! have bw; then
+    tmp="$(mktemp -d)"
+    curl -fsSL "https://vault.bitwarden.com/download/?app=cli&platform=linux" -o "$tmp/bw.zip"
+    unzip -o "$tmp/bw.zip" -d "$tmp"
+    sudo install -m 0755 "$tmp/bw" /usr/local/bin/bw
+    rm -rf "$tmp"
+  fi
 
 else
   echo "Unsupported OS: $os. This script supports macOS and Fedora." >&2
