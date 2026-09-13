@@ -7,7 +7,9 @@ tags:
   - editor
   - productivity
   - java
-description: A high-level overview of nvim-pro — a minimal yet capable Neovim setup for polyglot programmers, and where to learn it.
+description: >-
+  A high-level overview of nvim-pro — a minimal yet capable Neovim setup for
+  polyglot programmers, and where to learn it.
 ---
 
 # Neovim - Crafting a Minimal Yet Capable Editor
